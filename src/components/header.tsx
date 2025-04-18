@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import BurgerMenu from "./burger-menu";
 import { links } from "../links";
@@ -71,11 +71,11 @@ const chevronVariants = {
 
 const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [isAnimating, setIsAnimating] = useState(false);
   const { breakpoint: breakpointValue } = useBreakpoint(breakpoint);
+  const animationInProgressRef = useRef<boolean>(false);
 
   const handleToggle = () => {
-    if (isAnimating) return;
+    if (animationInProgressRef.current) return;
     setIsOpen((prev) => !prev);
     document.body.style.overflow = isOpen ? "auto" : "hidden";
   };
@@ -125,15 +125,25 @@ const Header = () => {
         <BurgerMenu isOpen={isOpen} handleToggle={handleToggle} />
       </nav>
       {/* Mobile menu */}
-      <AnimatePresence onExitComplete={() => setIsAnimating(false)}>
+      <AnimatePresence
+        onExitComplete={() => {
+          animationInProgressRef.current = false;
+        }}
+      >
         {isOpen && (
           <motion.nav
             variants={containerVariants}
             initial="hidden"
             animate="visible"
             exit="exit"
-            onAnimationStart={() => setIsAnimating(true)}
-            onAnimationComplete={() => setIsAnimating(false)}
+            onAnimationStart={() => {
+              animationInProgressRef.current = true;
+            }}
+            onAnimationComplete={() => {
+              if (isOpen) {
+                animationInProgressRef.current = false;
+              }
+            }}
             className="bg-[rgba(22,22,22)] overflow-y-scroll absolute w-full"
           >
             <ul className="flex gap-4 flex-col pt-4 text-neutral-50 text-3xl font-semibold">
@@ -146,12 +156,22 @@ const Header = () => {
                   >
                     <motion.a
                       whileHover="hover"
-                      target="_blank"
-                      rel="noopener noreferrer"
+                      target={link.name === "GitHub" ? "_blank" : undefined}
+                      rel={
+                        link.name === "GitHub"
+                          ? "noopener noreferrer"
+                          : undefined
+                      }
                       href={link.href}
                       initial="hidden"
                       className="flex justify-between items-center"
                       onClick={(e) => {
+                        if (animationInProgressRef.current) {
+                          e.preventDefault();
+                          e.stopPropagation();
+                          return;
+                        }
+
                         if (link.name !== "GitHub") {
                           e.preventDefault();
                           handleToggle();
