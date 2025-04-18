@@ -1,34 +1,34 @@
 export const links = [
   {
     name: "Store",
-    href: "",
+    href: "#store",
   },
   {
     name: "Mac",
-    href: "",
+    href: "#mac",
   },
   {
     name: "iPad",
-    href: "",
+    href: "#ipad",
   },
   {
     name: "iPhone",
-    href: "",
+    href: "#iphone",
   },
   {
     name: "Watch",
-    href: "",
+    href: "#watch",
   },
   {
     name: "TV",
-    href: "",
+    href: "#tv",
   },
   {
     name: "Music",
-    href: "",
+    href: "#music",
   },
   {
-    name: "Support",
-    href: "",
+    name: "GitHub",
+    href: "https://github.com/itsJosephV/apple-mobile-navigator",
   },
 ];

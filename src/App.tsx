@@ -1,11 +1,12 @@
 import { ReactNode } from "react";
 import Header from "./components/header";
 import Footer from "./components/footer";
+import { Apple } from "./components/icons/apple";
 
 function App() {
   return (
     <LayoutContainer>
-      <main className="px-5 py-10 space-y-6 italic text-gray-600 font-light">
+      <main className="px-5 my-10 space-y-6 italic text-gray-600 font-light">
         <code>
           <pre>
             {`
@@ -23,11 +24,15 @@ function App() {
           </pre>
         </code>
         <div className="space-y-4">
-          <div className="bg-emerald-500 text-emerald-100 p-3 rounded-md">
-            Apple
+          <div className="bg-emerald-500 p-3 text-emerald-100 rounded-md flex items-center gap-1">
+            <Apple /> apple
           </div>
-          <div className="bg-pink-500 p-3 text-pink-100 rounded-md">Apple</div>
-          <div className="bg-blue-500 p-3 rounded-md text-blue-100">Apple</div>
+          <div className="bg-pink-500 p-3 text-pink-100 rounded-md flex items-center gap-1">
+            <Apple /> apple
+          </div>
+          <div className="bg-sky-500 p-3 text-sky-100 rounded-md flex items-center gap-1">
+            <Apple /> apple
+          </div>
         </div>
         <p>
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Ducimus

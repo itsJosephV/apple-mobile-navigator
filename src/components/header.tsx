@@ -4,8 +4,8 @@ import BurgerMenu from "./burger-menu";
 import { links } from "../links";
 import useBreakpoint from "use-breakpoint";
 import { cn } from "../utils/cn";
-import { ChevronRight } from "./chevron-right";
-import { Apple } from "./Apple";
+import { ChevronRight } from "./icons/chevron-right";
+import { Apple } from "./icons/apple";
 
 const navHeight = 48;
 const breakpoint = { md: 768 };
@@ -64,7 +64,7 @@ const chevronVariants = {
     opacity: 1,
     x: 0,
     transition: {
-      duration: 0.3,
+      duration: 0.2,
     },
   },
 };
@@ -75,10 +75,9 @@ const Header = () => {
   const { breakpoint: breakpointValue } = useBreakpoint(breakpoint);
 
   const handleToggle = () => {
-    if (!isAnimating) {
-      setIsOpen((prev) => !prev);
-      document.body.style.overflow = isOpen ? "auto" : "hidden";
-    }
+    if (isAnimating) return;
+    setIsOpen((prev) => !prev);
+    document.body.style.overflow = isOpen ? "auto" : "hidden";
   };
 
   useEffect(() => {
@@ -92,15 +91,22 @@ const Header = () => {
   //TODO: APPLY TRANSPARENCY [22,22,22,0.8]
 
   return (
-    <header className="sticky top-0 w-full">
+    <header className="sticky top-0 w-full bg-[rgba(22,22,22)]">
       <nav
         style={{ height: `${navHeight}px` }}
         className={cn(
-          "flex justify-between items-center bg-[rgba(22,22,22)] backdrop-saturate-[1.8] backdrop-blur-[20px] px-5"
+          "flex justify-between items-center backdrop-saturate-[1.8] backdrop-blur-[20px] px-5 max-w-7xl mx-auto"
         )}
       >
         <div>
-          <a className="font-bold text-neutral-300" href="">
+          <a
+            onClick={() => {
+              if (!isOpen) return;
+              handleToggle();
+            }}
+            className="font-bold text-neutral-300 hover:text-neutral-50 transition-colors duration-300"
+            href="#"
+          >
             <Apple className="size-6" />
           </a>
         </div>
@@ -138,16 +144,26 @@ const Header = () => {
                     variants={itemVariants}
                     className="pl-5 pr-4"
                   >
-                    <motion.div
+                    <motion.a
                       whileHover="hover"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      href={link.href}
                       initial="hidden"
                       className="flex justify-between items-center"
+                      onClick={(e) => {
+                        if (link.name !== "GitHub") {
+                          e.preventDefault();
+                          handleToggle();
+                        }
+                      }}
                     >
-                      <a href={link.href}>{link.name}</a>
+                      {link.name}
+
                       <motion.span variants={chevronVariants}>
                         <ChevronRight className="size-8 relative top-px" />
                       </motion.span>
-                    </motion.div>
+                    </motion.a>
                   </motion.li>
                 );
               })}
