@@ -6,7 +6,7 @@ import { Apple } from "./components/icons/apple";
 function App() {
   return (
     <LayoutContainer>
-      <main className="px-5 my-10 space-y-6 italic text-gray-600 font-light">
+      <main className="px-5 my-10 space-y-6 italic text-gray-600 font-light max-w-7xl mx-auto">
         <code>
           <pre>
             {`
