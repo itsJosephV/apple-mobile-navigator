@@ -8,9 +8,13 @@ const Footer = () => {
           Carefully crafted by{" "}
           <a
             className="hover:text-neutral-50 transition-colors duration-300"
-            href=""
+            href="https://www.linkedin.com/in/josephvp/"
+            target="_blank"
+            rel="noopener noreferrer"
+            title="Joseph V. on LinkedIn"
+            aria-label="Joseph V. on LinkedIn"
           >
-            itsJosephV
+            Joseph V.
           </a>{" "}
           — {now.getFullYear()}
         </p>

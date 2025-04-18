@@ -146,7 +146,7 @@ const Header = () => {
             }}
             className="bg-[rgba(22,22,22)] overflow-y-scroll absolute w-full"
           >
-            <ul className="flex gap-4 flex-col pt-4 text-neutral-50 text-3xl font-semibold">
+            <ul className="flex gap-4 flex-col py-4 text-neutral-50 text-3xl font-semibold">
               {links.map((link, index) => {
                 return (
                   <motion.li
